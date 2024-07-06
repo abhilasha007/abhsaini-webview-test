@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
@@ -29,10 +29,14 @@ function WebView() {
     }
   };
 
+  useEffect(() => {
+    postMessageToNative()
+  }, []);
+
   return (
     <div>
       <button onClick={postMessageToNative} style={{ marginBottom: 20, paddingLeft: 20, paddingRight: 20 }}>
-        <h2>Post Message Native code</h2>
+        <h2>Post Message to Native code</h2>
       </button>
       <div style={{ marginBottom: 20 }}>{text}</div>
     </div>
