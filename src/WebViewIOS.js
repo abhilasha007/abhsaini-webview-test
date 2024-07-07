@@ -83,12 +83,12 @@ function WebViewIOS() {
               ? <>
                   <span style={{ fontWeight: "bold" }}>Auth Token Received from Native:</span> {token.substring(0, 100) + "..."}
                 </>
-              : <div>"No Auth Token"</div>
+              : <div>No Auth Token Received</div>
           }
         </div>
       </div>
 
-      <div style={{ marginBottom: 50, fontSize: "14px" }}>Status: {text}</div>
+      <div style={{ marginBottom: 50, fontSize: "14px" }}><span style={{ fontWeight: "bold" }}>Status:</span> {text}</div>
 
       <button
         onClick={exitWebView}

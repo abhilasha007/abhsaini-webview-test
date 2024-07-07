@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 function WebViewAndroid() {
   const [text, setText] = useState("");
@@ -8,16 +8,16 @@ function WebViewAndroid() {
     if (!window.Android) {
       setText("Android interface is not available");
     } else {
-      window.Android.getToken("12345");
+      window.Android.getToken("getToken12345");
       setText("message posted to native from AuthToken");
     }
   };
 
-  const pageLoadComplete = () => {
+  const pageLoadCompleted = () => {
     if (!window.Android) {
       setText("Android interface is not available");
     } else {
-      window.Android.pageLoadCompleted("12345");
+      window.Android.pageLoadCompleted("pageLoadCompleted12345");
       setText("message posted to native from pageLoadCompleted");
     }
   };
@@ -26,43 +26,49 @@ function WebViewAndroid() {
     if (!window.Android) {
       setText("Android interface is not available");
     } else {
-      window.Android.exitWebView("12345");
+      window.Android.exitWebView("exitWebView12345");
       setText("message posted to native from exitWebView");
     }
   };
 
   // Message from Android (mobile)
-  function authToken(token) {
+  const authToken = useCallback((token) => {
     setToken(token);
-    pageLoadComplete();
-  }
+    pageLoadCompleted();
+  }, []); // No dependencies, authToken is constant
 
   useEffect(() => {
     // Sending message to mobile
     getToken();
+    console.log("useEffect called");
 
     // Listener For getting message from mobile
     window.authToken = authToken;
-  });
+  }, [authToken]);
 
   return (
     <div>
       <h3>Test Web View Android</h3>
+
       <div style={{ display: "flex", alignItems: "center", marginBottom: 20 }}>
-        <div style={{ fontSize: "14px" }}>
-          {token.length > 0
-            ? `Auth Token : ${token.substring(0, 50) + "..."}`
-            : "No Auth Token"}
+        <div style={{ fontSize: "14px", whiteSpace: "normal", overflowWrap: "break-word", maxWidth: "350px" }}>
+          {
+            token.length > 0
+              ? <>
+                  <span style={{ fontWeight: "bold" }}>Auth Token Received from Native:</span> {token.substring(0, 100) + "..."}
+                </>
+              : <div>No Auth Token Received</div>
+          }
         </div>
       </div>
 
-      <div style={{ marginBottom: 50, fontSize: "14px" }}>Status: {text}</div>
+      <div style={{ marginBottom: 50, fontSize: "14px" }}><span style={{ fontWeight: "bold" }}>Status:</span> {text}</div>
 
       <button
         onClick={exitWebView}
         style={{ marginBottom: 20, paddingLeft: 20, paddingRight: 20 }}
       >
-        <div style={{ fontSize: "20px" }}>Exit Web View</div>
+        <div style={{ fontSize: "15px", fontWeight: "bold" }}>Exit Web View</div>
       </button>
     </div>
   );
