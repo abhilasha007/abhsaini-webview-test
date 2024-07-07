@@ -77,7 +77,7 @@ function WebViewIOS() {
         */}
 
       <div style={{ display: "flex", alignItems: "center", marginBottom: 20 }}>
-        <div style={{ fontSize: "14px" }}>
+        <div style={{ fontSize: "14px", whiteSpace: "normal" }}>
           {token.length > 0
             ? `Auth Token : ${token.substring(0, 50) + "..."}`
             : "No Auth Token"}
