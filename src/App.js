@@ -14,6 +14,8 @@ function App() {
 
 function WebView() {
   const [text, setText] = useState("");
+  const [token, setToken] = useState("");
+
   const postMessageToNative = () => {
     const webkit = window.webkit;
 
@@ -62,8 +64,19 @@ function WebView() {
     }
   };
 
+  // Message from iOS (mobile)
+  function authToken(token) {
+    setToken(token);
+  }
+
   useEffect(() => {
     postMessageToNative()
+    window.authToken = authToken;
+
+    // Cleanup if the component unmounts
+    return () => {
+      delete window.authToken;
+    };
   }, []);
 
   return (
@@ -71,7 +84,8 @@ function WebView() {
       <button onClick={postMessageToNativeAuthToken} style={{ marginBottom: 20, paddingLeft: 20, paddingRight: 20 }}>
         <h2>Get Auth Token</h2>
       </button>
-      <div style={{ marginBottom: 50 }}>{text}</div>
+      <div style={{ marginBottom: 20 }}>Auth Token: {token}</div>
+      <div style={{ marginBottom: 50 }}>Status: {text}</div>
 
       <button onClick={exitWebView} style={{ marginBottom: 20, paddingLeft: 20, paddingRight: 20 }}>
         <h2>Exit Web View</h2>
