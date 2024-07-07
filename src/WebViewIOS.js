@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
 function WebViewIOS() {
   const [text, setText] = useState("");
@@ -52,19 +52,20 @@ function WebViewIOS() {
     }
   };
 
-  // Message from iOS (mobile)
-  function authToken(token) {
+  // Memoize authToken using useCallback
+  const authToken = useCallback((token) => {
     setToken(token);
     postMessageToNativePageLoadComplete();
-  }
+  }, []); // No dependencies, authToken is constant
 
   useEffect(() => {
     // Sending message to mobile
     postMessageToNativeGetAuthToken();
+    console.log("useEffect called");
 
     // Listener For getting message from mobile
     window.authToken = authToken;
-  });
+  }, [authToken]);
 
   return (
     <div>
