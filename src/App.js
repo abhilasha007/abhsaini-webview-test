@@ -21,11 +21,26 @@ function WebView() {
       setText("webkit is not available");
     } else if (!webkit.messageHandlers) {
       setText("webkit.messageHandlers is not available");
-    } else if (!webkit.messageHandlers.testHandler) {
-      setText("webkit.messageHandlers.testHandler is not available");
+    } else if (!webkit.messageHandlers.PageLoadCompleted) {
+      setText("webkit.messageHandlers.PageLoadCompleted is not available");
     } else {
-      webkit.messageHandlers.testHandler.postMessage("Hello, world from JS!");
-      setText("message posted");
+      webkit.messageHandlers.PageLoadCompleted.postMessage("Hello, world from JS!");
+      setText("message posted PageLoadCompleted");
+    }
+  };
+
+  const postMessageToNativeAuthToken = () => {
+    const webkit = window.webkit;
+
+    if (!webkit) {
+      setText("webkit is not available");
+    } else if (!webkit.messageHandlers) {
+      setText("webkit.messageHandlers is not available");
+    } else if (!webkit.messageHandlers.AuthToken) {
+      setText("webkit.messageHandlers.AuthToken is not available");
+    } else {
+      webkit.messageHandlers.AuthToken.postMessage("Hello, world from JS!");
+      setText("message posted AuthToken");
     }
   };
 
@@ -35,8 +50,8 @@ function WebView() {
 
   return (
     <div>
-      <button onClick={postMessageToNative} style={{ marginBottom: 20, paddingLeft: 20, paddingRight: 20 }}>
-        <h2>Post Message to Native code</h2>
+      <button onClick={postMessageToNativeAuthToken} style={{ marginBottom: 20, paddingLeft: 20, paddingRight: 20 }}>
+        <h2>Get Auth Token</h2>
       </button>
       <div style={{ marginBottom: 20 }}>{text}</div>
     </div>
