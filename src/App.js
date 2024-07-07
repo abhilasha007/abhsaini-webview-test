@@ -67,12 +67,12 @@ function WebView() {
   // Message from iOS (mobile)
   function authToken(token) {
     setToken(token);
+    postMessageToNativePageLoadComplete()
   }
 
   useEffect(() => {
     // Sending message to mobile
     postMessageToNativeGetAuthToken()
-    postMessageToNativePageLoadComplete()
 
     // Listener For getting message from mobile
     window.authToken = authToken;
