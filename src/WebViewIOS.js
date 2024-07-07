@@ -78,9 +78,13 @@ function WebViewIOS() {
 
       <div style={{ display: "flex", alignItems: "center", marginBottom: 20 }}>
         <div style={{ fontSize: "14px", whiteSpace: "normal", overflowWrap: "break-word", maxWidth: "350px" }}>
-          {token.length > 0
-            ? `Auth Token received from native: ${token}`
-            : "No Auth Token"}
+          {
+            token.length > 0
+              ? <>
+                  <span style={{ fontWeight: "bold" }}>Auth Token Received from Native:</span> {token.substring(0, 100)}
+                </>
+              : <div>"No Auth Token"</div>
+          }
         </div>
       </div>
 
