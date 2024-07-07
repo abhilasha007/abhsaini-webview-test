@@ -74,12 +74,12 @@ function WebViewIOS() {
         <button onClick={postMessageToNativeGetAuthToken} style={{ marginBottom: 20, paddingLeft: 20, paddingRight: 20 }}>
           <h2>Get Auth Token</h2>
         </button> 
-        */}
+      */}
 
       <div style={{ display: "flex", alignItems: "center", marginBottom: 20 }}>
-        <div style={{ fontSize: "14px", whiteSpace: "normal" }}>
+        <div style={{ fontSize: "14px", whiteSpace: "normal", overflowWrap: "break-word", maxWidth: "350px" }}>
           {token.length > 0
-            ? `Auth Token : ${token.substring(0, 50) + "..."}`
+            ? `Auth Token received from native: ${token}`
             : "No Auth Token"}
         </div>
       </div>
