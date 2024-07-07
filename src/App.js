@@ -24,7 +24,7 @@ function WebView() {
     } else if (!webkit.messageHandlers.PageLoadCompleted) {
       setText("webkit.messageHandlers.PageLoadCompleted is not available");
     } else {
-      webkit.messageHandlers.PageLoadCompleted.postMessage("Hello, world from JS!");
+      webkit.messageHandlers.PageLoadCompleted.postMessage({ UUID: "1234s"});
       setText("message posted PageLoadCompleted");
     }
   };
