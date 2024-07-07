@@ -84,7 +84,13 @@ function WebView() {
       <button onClick={postMessageToNativeAuthToken} style={{ marginBottom: 20, paddingLeft: 20, paddingRight: 20 }}>
         <h2>Get Auth Token</h2>
       </button>
-      <div style={{ marginBottom: 20 }}>Auth Token: {token}</div>
+
+
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: 20 }}>
+        <div style={{ fontSize: '14px' }}>     
+          {token.length > 0 ? "Auth Token : " : ""}  {token.substring(0, 50)}</div>
+      </div>
+
       <div style={{ marginBottom: 50 }}>Status: {text}</div>
 
       <button onClick={exitWebView} style={{ marginBottom: 20, paddingLeft: 20, paddingRight: 20 }}>
