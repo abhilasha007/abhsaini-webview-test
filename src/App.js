@@ -64,25 +64,18 @@ function WebView() {
     }
   };
 
-
-  const onAppLoad = () => {
-    postMessageToNativeGetAuthToken()
-    postMessageToNativePageLoadComplete()
-  }
-
   // Message from iOS (mobile)
   function authToken(token) {
     setToken(token);
   }
 
   useEffect(() => {
-    onAppLoad()
-    window.authToken = authToken;
+    // Sending message to mobile
+    postMessageToNativeGetAuthToken()
+    postMessageToNativePageLoadComplete()
 
-    // Cleanup if the component unmounts
-    return () => {
-      delete window.authToken;
-    };
+    // Listener For getting message from mobile
+    window.authToken = authToken;
   }, []);
 
   return (
