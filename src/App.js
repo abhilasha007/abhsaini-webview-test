@@ -16,7 +16,7 @@ function WebView() {
   const [text, setText] = useState("");
   const [token, setToken] = useState("");
 
-  const postMessageToNative = () => {
+  const postMessageToNativePageLoadComplete = () => {
     const webkit = window.webkit;
 
     if (!webkit) {
@@ -27,11 +27,11 @@ function WebView() {
       setText("webkit.messageHandlers.PageLoadCompleted is not available");
     } else {
       webkit.messageHandlers.PageLoadCompleted.postMessage({ UUID: "12345"});
-      setText("message posted PageLoadCompleted");
+      setText("message posted from PageLoadCompleted");
     }
   };
 
-  const postMessageToNativeAuthToken = () => {
+  const postMessageToNativeGetAuthToken = () => {
     const webkit = window.webkit;
 
     if (!webkit) {
@@ -45,7 +45,7 @@ function WebView() {
         UUID: "12345",
         callbackId: "1720344291577-1000"
       });
-      setText("message posted AuthToken");
+      setText("message posted from AuthToken");
     }
   };
 
@@ -60,9 +60,15 @@ function WebView() {
       setText("webkit.messageHandlers.ExitWebView is not available");
     } else {
       webkit.messageHandlers.ExitWebView.postMessage({ UUID: "12345" });
-      setText("message posted ExitWebView");
+      setText("message posted from ExitWebView");
     }
   };
+
+
+  const onAppLoad = () => {
+    postMessageToNativeGetAuthToken()
+    postMessageToNativePageLoadComplete()
+  }
 
   // Message from iOS (mobile)
   function authToken(token) {
@@ -70,7 +76,7 @@ function WebView() {
   }
 
   useEffect(() => {
-    postMessageToNative()
+    onAppLoad()
     window.authToken = authToken;
 
     // Cleanup if the component unmounts
@@ -81,14 +87,15 @@ function WebView() {
 
   return (
     <div>
-      <button onClick={postMessageToNativeAuthToken} style={{ marginBottom: 20, paddingLeft: 20, paddingRight: 20 }}>
+      {/* 
+      <button onClick={postMessageToNativeGetAuthToken} style={{ marginBottom: 20, paddingLeft: 20, paddingRight: 20 }}>
         <h2>Get Auth Token</h2>
-      </button>
-
+      </button> 
+      */}
 
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: 20 }}>
         <div style={{ fontSize: '14px' }}>     
-          {token.length > 0 ? "Auth Token : " : ""}  {token.substring(0, 50)}</div>
+          {token.length > 0 ? "Auth Token fetched : " : ""}  {token}</div>
       </div>
 
       <div style={{ marginBottom: 50 }}>Status: {text}</div>
