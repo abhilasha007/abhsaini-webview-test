@@ -47,6 +47,21 @@ function WebView() {
     }
   };
 
+  const exitWebView = () => {
+    const webkit = window.webkit;
+
+    if (!webkit) {
+      setText("webkit is not available");
+    } else if (!webkit.messageHandlers) {
+      setText("webkit.messageHandlers is not available");
+    } else if (!webkit.messageHandlers.ExitWebView) {
+      setText("webkit.messageHandlers.ExitWebView is not available");
+    } else {
+      webkit.messageHandlers.ExitWebView.postMessage({ UUID: "12345" });
+      setText("message posted ExitWebView");
+    }
+  };
+
   useEffect(() => {
     postMessageToNative()
   }, []);
@@ -56,7 +71,11 @@ function WebView() {
       <button onClick={postMessageToNativeAuthToken} style={{ marginBottom: 20, paddingLeft: 20, paddingRight: 20 }}>
         <h2>Get Auth Token</h2>
       </button>
-      <div style={{ marginBottom: 20 }}>{text}</div>
+      <div style={{ marginBottom: 50 }}>{text}</div>
+
+      <button onClick={exitWebView} style={{ marginBottom: 20, paddingLeft: 20, paddingRight: 20 }}>
+        <h2>Exit Web View</h2>
+      </button>
     </div>
   );
 }
