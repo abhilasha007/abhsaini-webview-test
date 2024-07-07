@@ -88,7 +88,7 @@ function WebView() {
 
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: 20 }}>
         <div style={{ fontSize: '14px' }}>     
-          {token.length > 0 ? "Auth Token fetched : " : ""}  {token.substring(100)} {' ...'}</div>
+          {token.length > 0 ? "Auth Token : " : "No Auth Token"}  {token.substring(0, 50) + "..."}</div>
       </div>
 
       <div style={{ marginBottom: 50, fontSize: '14px' }}>
