@@ -24,7 +24,7 @@ function WebView() {
     } else if (!webkit.messageHandlers.PageLoadCompleted) {
       setText("webkit.messageHandlers.PageLoadCompleted is not available");
     } else {
-      webkit.messageHandlers.PageLoadCompleted.postMessage({ UUID: "1234s"});
+      webkit.messageHandlers.PageLoadCompleted.postMessage({ UUID: "12345"});
       setText("message posted PageLoadCompleted");
     }
   };
@@ -39,7 +39,10 @@ function WebView() {
     } else if (!webkit.messageHandlers.AuthToken) {
       setText("webkit.messageHandlers.AuthToken is not available");
     } else {
-      webkit.messageHandlers.AuthToken.postMessage("Hello, world from JS!");
+      webkit.messageHandlers.AuthToken.postMessage({
+        UUID: "12345",
+        callbackId: "1720344291577-1000"
+      });
       setText("message posted AuthToken");
     }
   };
