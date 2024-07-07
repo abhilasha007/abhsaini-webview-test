@@ -91,10 +91,12 @@ function WebView() {
           {token.length > 0 ? "Auth Token fetched : " : ""}  {token}</div>
       </div>
 
-      <div style={{ marginBottom: 50 }}>Status: {text}</div>
+      <div style={{ marginBottom: 50, fontSize: '14px' }}>
+        Status: {text}
+      </div>
 
       <button onClick={exitWebView} style={{ marginBottom: 20, paddingLeft: 20, paddingRight: 20 }}>
-        <h2>Exit Web View</h2>
+        <div style={{fontSize: '20px' }}>Exit Web View</div>
       </button>
     </div>
   );
